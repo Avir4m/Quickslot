@@ -1,4 +1,4 @@
-package com.learning.website;
+package com.quickslot.website;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package com.learning.website.DTO;
+package com.quickslot.website.DTO;
 
 import lombok.Builder;
 import lombok.Data;

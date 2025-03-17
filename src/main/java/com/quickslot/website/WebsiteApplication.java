@@ -1,4 +1,4 @@
-package com.learning.website;
+package com.quickslot.website;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
