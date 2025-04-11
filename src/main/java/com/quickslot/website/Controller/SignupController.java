@@ -1,5 +1,6 @@
-package com.quickslot.website;
+package com.quickslot.website.Controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -8,10 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.quickslot.website.DTO.user;
+import com.quickslot.website.Entities.User;
+import com.quickslot.website.Repositories.UserRepository;
 
 @Controller
 public class SignupController {
+
+    @Autowired
+    private UserRepository userRepository;
 
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(); 
     
@@ -32,20 +37,16 @@ public class SignupController {
             return "signup";
         }
 
-        user testUser = user.builder()
-            .username(username)
-            .email(email)
-            .password(passwordEncoder.encode((CharSequence)password))
-            .build();
-        
-        System.out.println(testUser);
+        if (userRepository.existsByEmail(email)) {
+            model.addAttribute("error", "Email already exists");
+            return "signup";
+        }
 
+        User newUser = new User(username, email, passwordEncoder.encode(password));
+        userRepository.save(newUser);
 
         model.addAttribute("message", "User registered successfully!");
         return "signup";
-
-        
-
     }
 
 }
